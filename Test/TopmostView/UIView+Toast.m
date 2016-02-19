@@ -22,7 +22,7 @@
     messageLabel.text = messageStr;
     messageLabel.textAlignment = NSTextAlignmentCenter;
     messageLabel.textColor = [UIColor whiteColor];
-    messageLabel.center = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) / 3);
+    messageLabel.center = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) * 2 / 3);
     messageLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     messageLabel.alpha = 0;
     [self addSubview:messageLabel];

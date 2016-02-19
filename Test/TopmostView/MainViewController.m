@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "PushedViewController.h"
 #import "PresentedViewController.h"
+#import "TextViewController.h"
 #import "TopmostView.h"
 #import "UIView+Toast.h"
 
@@ -16,6 +17,7 @@
 
 @property (nonatomic, strong) UIButton *pushButton;
 @property (nonatomic, strong) UIButton *presentButton;
+@property (nonatomic, strong) UIButton *gotoTextButton;
 
 @end
 
@@ -35,6 +37,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.pushButton];
     [self.view addSubview:self.presentButton];
+    [self.view addSubview:self.gotoTextButton];
 }
 
 - (UIButton *)pushButton
@@ -59,6 +62,17 @@
     return _presentButton;
 }
 
+- (UIButton *)gotoTextButton
+{
+    if (!_gotoTextButton) {
+        _gotoTextButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_gotoTextButton setTitle:@"Text" forState:UIControlStateNormal];
+        _gotoTextButton.frame = CGRectMake(10, 130, 100, 50);
+        [_gotoTextButton addTarget:self action:@selector(gotoTextAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _gotoTextButton;
+}
+
 - (void)pushAction
 {
     [self.navigationController pushViewController:[PushedViewController new] animated:YES];
@@ -69,6 +83,11 @@
 {
     [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[PresentedViewController new]] animated:YES completion:nil];
     [[TopmostView viewForApplicationWindow] showToast:@"present"];
+}
+
+- (void)gotoTextAction
+{
+    [self.navigationController pushViewController:[TextViewController new] animated:YES];
 }
 
 @end
