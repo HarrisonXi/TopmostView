@@ -7,6 +7,8 @@
 //
 
 #import "PushedViewController.h"
+#import "TopmostView.h"
+#import "UIView+Toast.h"
 
 @interface PushedViewController ()
 
@@ -27,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Pushed";
+    self.view.backgroundColor = [UIColor colorWithRed:1 green:1 blue:0.9 alpha:1];
     [self.view addSubview:self.popButton];
 }
 
@@ -44,6 +47,7 @@
 - (void)popAction
 {
     [self.navigationController popViewControllerAnimated:YES];
+    [[TopmostView viewForApplicationWindow] showToast:@"pop"];
 }
 
 @end

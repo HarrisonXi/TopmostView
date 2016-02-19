@@ -7,6 +7,8 @@
 //
 
 #import "PresentedViewController.h"
+#import "TopmostView.h"
+#import "UIView+Toast.h"
 
 @interface PresentedViewController ()
 
@@ -27,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Presented";
+    self.view.backgroundColor = [UIColor colorWithRed:0.9 green:1 blue:0.9 alpha:1];
     [self.view addSubview:self.dismissButton];
 }
 
@@ -44,6 +47,7 @@
 - (void)dismissAction
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [[TopmostView viewForApplicationWindow] showToast:@"dismiss"];
 }
 
 @end

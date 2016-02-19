@@ -9,6 +9,8 @@
 #import "MainViewController.h"
 #import "PushedViewController.h"
 #import "PresentedViewController.h"
+#import "TopmostView.h"
+#import "UIView+Toast.h"
 
 @interface MainViewController ()
 
@@ -30,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Main";
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.pushButton];
     [self.view addSubview:self.presentButton];
 }
@@ -59,11 +62,13 @@
 - (void)pushAction
 {
     [self.navigationController pushViewController:[PushedViewController new] animated:YES];
+    [[TopmostView viewForApplicationWindow] showToast:@"push"];
 }
 
 - (void)presentAction
 {
     [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:[PresentedViewController new]] animated:YES completion:nil];
+    [[TopmostView viewForApplicationWindow] showToast:@"present"];
 }
 
 @end

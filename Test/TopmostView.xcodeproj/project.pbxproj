@@ -15,6 +15,7 @@
 		9213F4061C76C98A00B7221C /* TopmostView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9213F4051C76C98A00B7221C /* TopmostView.m */; };
 		9213F4091C76CCD300B7221C /* PushedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9213F4081C76CCD300B7221C /* PushedViewController.m */; };
 		9213F40F1C76CDB100B7221C /* PresentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9213F40E1C76CDB100B7221C /* PresentedViewController.m */; };
+		9213F4121C76F65200B7221C /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 9213F4111C76F65200B7221C /* UIView+Toast.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,8 @@
 		9213F4081C76CCD300B7221C /* PushedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushedViewController.m; sourceTree = "<group>"; };
 		9213F40D1C76CDB100B7221C /* PresentedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentedViewController.h; sourceTree = "<group>"; };
 		9213F40E1C76CDB100B7221C /* PresentedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentedViewController.m; sourceTree = "<group>"; };
+		9213F4101C76F65200B7221C /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		9213F4111C76F65200B7221C /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +72,8 @@
 			children = (
 				9213F3F01C76C3BC00B7221C /* AppDelegate.h */,
 				9213F3F11C76C3BC00B7221C /* AppDelegate.m */,
+				9213F4101C76F65200B7221C /* UIView+Toast.h */,
+				9213F4111C76F65200B7221C /* UIView+Toast.m */,
 				9213F3F31C76C3BC00B7221C /* MainViewController.h */,
 				9213F3F41C76C3BC00B7221C /* MainViewController.m */,
 				9213F4071C76CCD300B7221C /* PushedViewController.h */,
@@ -164,6 +169,7 @@
 				9213F4061C76C98A00B7221C /* TopmostView.m in Sources */,
 				9213F3F21C76C3BC00B7221C /* AppDelegate.m in Sources */,
 				9213F40F1C76CDB100B7221C /* PresentedViewController.m in Sources */,
+				9213F4121C76F65200B7221C /* UIView+Toast.m in Sources */,
 				9213F3EF1C76C3BC00B7221C /* main.m in Sources */,
 				9213F4091C76CCD300B7221C /* PushedViewController.m in Sources */,
 			);
