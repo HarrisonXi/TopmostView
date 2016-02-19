@@ -22,20 +22,51 @@
         self.backgroundColor = [UIColor clearColor];
         self.userInteractionEnabled = NO;
         self.window = window;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeOrientationAction:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+        if ([[UIDevice currentDevice].systemVersion floatValue] < 8.0) {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeOrientationHandler:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
+        } else {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeOrientationHandler:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+        }
     }
     return self;
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    if ([[UIDevice currentDevice].systemVersion floatValue] < 8.0) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
+    } else {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    }
 }
 
-- (void)changeOrientationAction:(NSNotification *)notification
+- (void)updateOrientationForIos7:(UIInterfaceOrientation)orientation
 {
-    [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
-        self.frame = self.window.bounds;
+    switch (orientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+            self.transform = CGAffineTransformMakeRotation(-M_PI_2);
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            self.transform = CGAffineTransformMakeRotation(M_PI_2);
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            self.transform = CGAffineTransformMakeRotation(-M_PI);
+            break;
+        default:
+            self.transform = CGAffineTransformMakeRotation(0);
+            break;
+    }
+}
+
+- (void)changeOrientationHandler:(NSNotification *)notification
+{
+    [UIView animateWithDuration:0.25 animations:^{
+        if ([[UIDevice currentDevice].systemVersion floatValue] < 8.0) {
+            UIInterfaceOrientation orientation = (UIInterfaceOrientation)[notification.userInfo[UIApplicationStatusBarOrientationUserInfoKey] integerValue];
+            [self updateOrientationForIos7:orientation];
+        } else {
+            self.frame = self.window.bounds;
+        }
     }];
 }
 
@@ -56,6 +87,9 @@
     if (!topmostView) {
         topmostView = [[self alloc] initWithWindow:window];
         topmostView.frame = window.bounds;
+        if ([[UIDevice currentDevice].systemVersion floatValue] < 8.0) {
+            [topmostView updateOrientationForIos7:[UIApplication sharedApplication].statusBarOrientation];
+        }
         [window addSubview:topmostView];
     }
     [topmostView.window bringSubviewToFront:topmostView];
