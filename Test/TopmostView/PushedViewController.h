@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  PushedViewController.h
 //  TopmostView
 //
 //  Created by HarrisonXi on 16/2/19.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface PushedViewController : UIViewController
 
 @end
-
