@@ -16,6 +16,9 @@
 // get or create a new topmost view for the keyboard window
 + (instancetype)viewForKeyboardWindow;
 
+// get or create a new topmost view for a new window over status bar
++ (instancetype)viewForTopmostWindow;
+
 // get or create a new topmost view for the specified window
 + (instancetype)viewForWindow:(UIWindow *)window;
 

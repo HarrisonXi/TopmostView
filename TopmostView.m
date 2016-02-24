@@ -104,6 +104,15 @@
     return [self viewForWindow:[UIApplication sharedApplication].keyWindow];
 }
 
+static UIWindow *topmostWindow_;
++ (instancetype)viewForTopmostWindow
+{
+    if (!topmostWindow_) {
+        
+    }
+    return [self viewForWindow:topmostWindow_];
+}
+
 + (instancetype)viewForWindow:(UIWindow *)window
 {
     TopmostView *topmostView = nil;

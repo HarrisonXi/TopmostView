@@ -18,6 +18,11 @@
 @property (nonatomic, strong) UIButton *pushButton;
 @property (nonatomic, strong) UIButton *presentButton;
 @property (nonatomic, strong) UIButton *gotoTextButton;
+@property (nonatomic, strong) UIButton *topmostButton;
+
+@property (nonatomic, strong) UIView *topmostColorView;
+@property (nonatomic, strong) NSArray *colorArray;
+@property (nonatomic, assign) NSInteger colorIndex;
 
 @end
 
@@ -27,6 +32,7 @@
 {
     if (self = [super init]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
+        self.colorArray = @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor]];
     }
     return self;
 }
@@ -38,6 +44,7 @@
     [self.view addSubview:self.pushButton];
     [self.view addSubview:self.presentButton];
     [self.view addSubview:self.gotoTextButton];
+    [self.view addSubview:self.topmostButton];
 }
 
 - (UIButton *)pushButton
@@ -73,6 +80,29 @@
     return _gotoTextButton;
 }
 
+- (UIButton *)topmostButton
+{
+    if (!_topmostButton) {
+        _topmostButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_topmostButton setTitle:@"Topmost" forState:UIControlStateNormal];
+        _topmostButton.frame = CGRectMake(10, 190, 100, 50);
+        [_topmostButton addTarget:self action:@selector(changeColorAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _topmostButton;
+}
+
+- (UIView *)topmostColorView
+{
+    if (!_topmostColorView) {
+        TopmostView *topmostView = [TopmostView viewForTopmostWindow];
+        _topmostColorView = [UIView new];
+        _topmostColorView.frame = CGRectMake(CGRectGetWidth(topmostView.bounds) - 64, 0, 64, 64);
+        _topmostColorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [topmostView addSubview:_topmostColorView];
+    }
+    return _topmostColorView;
+}
+
 - (void)pushAction
 {
     [self.navigationController pushViewController:[PushedViewController new] animated:YES];
@@ -88,6 +118,12 @@
 - (void)gotoTextAction
 {
     [self.navigationController pushViewController:[TextViewController new] animated:YES];
+}
+
+- (void)changeColorAction
+{
+    self.topmostColorView.backgroundColor = self.colorArray[self.colorIndex];
+    self.colorIndex = (self.colorIndex + 1) % [self.colorArray count];
 }
 
 @end
