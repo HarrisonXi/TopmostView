@@ -46,7 +46,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    [[TopmostView viewForApplicationWindow] showToast:string];
+    [[TopmostView viewForKeyboardWindow] showToast:string];
     return YES;
 }
 
