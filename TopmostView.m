@@ -34,27 +34,40 @@
 
 - (void)updateTransformWithOrientation:(UIInterfaceOrientation)orientation
 {
+    CGFloat width = CGRectGetWidth(self.window.bounds);
+    CGFloat height = CGRectGetHeight(self.window.bounds);
+    if (width > height) {
+        CGFloat temp = width;
+        width = height;
+        height = temp;
+    }
+    CGFloat offset = (height - width) / 2;
+    CGAffineTransform transform;
     switch (orientation) {
         case UIInterfaceOrientationLandscapeLeft:
-            self.transform = CGAffineTransformMakeRotation(-M_PI_2);
+            transform = CGAffineTransformMakeTranslation(-offset, offset);
+            transform = CGAffineTransformRotate(transform, -M_PI_2);
             break;
         case UIInterfaceOrientationLandscapeRight:
-            self.transform = CGAffineTransformMakeRotation(M_PI_2);
+            transform = CGAffineTransformMakeTranslation(-offset, offset);
+            transform = CGAffineTransformRotate(transform, M_PI_2);
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
-            self.transform = CGAffineTransformMakeRotation(-M_PI);
+            transform = CGAffineTransformMakeRotation(-M_PI);
             break;
         default:
-            self.transform = CGAffineTransformIdentity;
+            transform = CGAffineTransformIdentity;
             break;
     }
+    self.transform = transform;
+    self.frame = CGRectMake(0, 0, width, height);
 }
 
 - (void)updateFrameWithOrientation:(UIInterfaceOrientation)orientation
 {
     CGFloat width = CGRectGetWidth(self.window.bounds);
     CGFloat height = CGRectGetHeight(self.window.bounds);
-    if (width < height) {
+    if (width > height) {
         CGFloat temp = width;
         width = height;
         height = temp;
@@ -62,10 +75,10 @@
     switch (orientation) {
         case UIInterfaceOrientationLandscapeLeft:
         case UIInterfaceOrientationLandscapeRight:
-            self.frame = CGRectMake(0, 0, width, height);
+            self.frame = CGRectMake(0, 0, height, width);
             break;
         default:
-            self.frame = CGRectMake(0, 0, height, width);
+            self.frame = CGRectMake(0, 0, width, height);
             break;
     }
 }
