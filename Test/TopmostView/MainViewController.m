@@ -95,8 +95,7 @@
 {
     if (!_topmostColorView) {
         TopmostView *topmostView = [TopmostView viewForTopmostWindow];
-        _topmostColorView = [UIView new];
-        _topmostColorView.frame = CGRectMake(CGRectGetWidth(topmostView.bounds) - 64, 0, 64, 64);
+        _topmostColorView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(topmostView.bounds) - 64, 0, 64, 64)];
         _topmostColorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [topmostView addSubview:_topmostColorView];
     }

@@ -108,7 +108,12 @@ static UIWindow *topmostWindow_;
 + (instancetype)viewForTopmostWindow
 {
     if (!topmostWindow_) {
-        
+        topmostWindow_ = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        topmostWindow_.backgroundColor = [UIColor clearColor];
+        topmostWindow_.windowLevel = UIWindowLevelStatusBar + 1;
+        topmostWindow_.userInteractionEnabled = NO;
+        topmostWindow_.rootViewController = [UIViewController new];
+        topmostWindow_.hidden = NO;
     }
     return [self viewForWindow:topmostWindow_];
 }
