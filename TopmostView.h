@@ -10,16 +10,16 @@
 
 @interface TopmostView : UIView
 
-// get or create a new topmost view for the application window
+// get topmost view for the application key window
 + (instancetype)viewForApplicationWindow;
 
-// get or create a new topmost view for the keyboard window
+// get topmost view for the keyboard window
 + (instancetype)viewForKeyboardWindow;
 
-// get or create a new topmost view for a new window over status bar
+// get topmost view for a new window over status bar
 + (instancetype)viewForTopmostWindow;
 
-// get or create a new topmost view for the specified window
+// get topmost view for specified window
 + (instancetype)viewForWindow:(UIWindow *)window;
 
 @end
