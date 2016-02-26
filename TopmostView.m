@@ -10,7 +10,7 @@
 
 @interface TopmostView ()
 
-@property (nonatomic, weak) UIWindow *window;
+@property (nonatomic, weak) UIWindow *tv_window;
 
 @end
 
@@ -21,7 +21,7 @@
     if (self = [super init]) {
         self.backgroundColor = [UIColor clearColor];
         self.userInteractionEnabled = NO;
-        self.window = window;
+        self.tv_window = window;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeOrientationHandler:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
     }
     return self;
@@ -34,8 +34,8 @@
 
 - (void)updateTransformWithOrientation:(UIInterfaceOrientation)orientation
 {
-    CGFloat width = CGRectGetWidth(self.window.bounds);
-    CGFloat height = CGRectGetHeight(self.window.bounds);
+    CGFloat width = CGRectGetWidth(self.tv_window.bounds);
+    CGFloat height = CGRectGetHeight(self.tv_window.bounds);
     if (width > height) {
         CGFloat temp = width;
         width = height;
@@ -65,8 +65,8 @@
 
 - (void)updateFrameWithOrientation:(UIInterfaceOrientation)orientation
 {
-    CGFloat width = CGRectGetWidth(self.window.bounds);
-    CGFloat height = CGRectGetHeight(self.window.bounds);
+    CGFloat width = CGRectGetWidth(self.tv_window.bounds);
+    CGFloat height = CGRectGetHeight(self.tv_window.bounds);
     if (width > height) {
         CGFloat temp = width;
         width = height;
@@ -86,7 +86,7 @@
 - (void)updateWithOrientation:(UIInterfaceOrientation)orientation
 {
     BOOL isIos7 = [[UIDevice currentDevice].systemVersion floatValue] < 8.0;
-    BOOL isKeyboardWindow = [self.window isKindOfClass:NSClassFromString(@"UITextEffectsWindow")];
+    BOOL isKeyboardWindow = [self.tv_window isKindOfClass:NSClassFromString(@"UITextEffectsWindow")];
     if (isIos7 == YES && isKeyboardWindow == NO) {
         [self updateTransformWithOrientation:orientation];
     } else {
@@ -147,7 +147,7 @@ static UIWindow *topmostWindow_;
         [topmostView updateWithOrientation:orientation];
         [window addSubview:topmostView];
     }
-    [topmostView.window bringSubviewToFront:topmostView];
+    [topmostView.tv_window bringSubviewToFront:topmostView];
     return topmostView;
 }
 
