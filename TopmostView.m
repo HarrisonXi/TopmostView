@@ -102,19 +102,33 @@
     }];
 }
 
-+ (instancetype)viewForKeyboardWindow
+static UIWindow *appicationWindow_;
++ (void)resetApplicationWindow
 {
-    for (UIWindow *window in [[UIApplication sharedApplication].windows reverseObjectEnumerator]) {
-        if ([window isKindOfClass:NSClassFromString(@"UITextEffectsWindow")] && window.hidden == NO && window.alpha > 0) {
-            return [TopmostView viewForWindow:window];
-        }
-    }
-    return nil;
+    appicationWindow_ = [UIApplication sharedApplication].keyWindow;
+}
+
++ (void)setApplicationWindow:(UIWindow *)aWindow
+{
+    appicationWindow_ = aWindow;
 }
 
 + (instancetype)viewForApplicationWindow
 {
-    return [self viewForWindow:[UIApplication sharedApplication].keyWindow];
+    if (!appicationWindow_) {
+        [self resetApplicationWindow];
+    }
+    return [self viewForWindow:appicationWindow_];
+}
+
++ (instancetype)viewForKeyboardWindow
+{
+    for (UIWindow *window in [[UIApplication sharedApplication].windows reverseObjectEnumerator]) {
+        if ([window isKindOfClass:NSClassFromString(@"UITextEffectsWindow")] && window.hidden == NO && window.alpha > 0) {
+            return [self viewForWindow:window];
+        }
+    }
+    return nil;
 }
 
 static UIWindow *topmostWindow_;

@@ -10,16 +10,23 @@
 
 @interface TopmostView : UIView
 
-// get topmost view for the application key window
+// Reset the application window to current key window.
++ (void)resetApplicationWindow;
+
+// Set the application window to a window.
++ (void)setApplicationWindow:(UIWindow *)aWindow;
+
+// Get topmost view for the application window.
+// If the application window is not set, it will get the application key window.
 + (instancetype)viewForApplicationWindow;
 
-// get topmost view for the keyboard window
+// Get topmost view for the keyboard window.
 + (instancetype)viewForKeyboardWindow;
 
-// get topmost view for a new window over status bar
+// Get topmost view for a new window over status bar.
 + (instancetype)viewForTopmostWindow;
 
-// get topmost view for specified window
+// Get topmost view for specified window.
 + (instancetype)viewForWindow:(UIWindow *)window;
 
 @end

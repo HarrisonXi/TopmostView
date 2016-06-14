@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import "TopmostView.h"
 
 @interface AppDelegate ()
 
@@ -21,6 +22,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[MainViewController new]];
     [self.window makeKeyAndVisible];
+    [TopmostView resetApplicationWindow]; // you should set application window at here
     return YES;
 }
 
