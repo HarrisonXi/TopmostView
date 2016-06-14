@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UIButton *presentButton;
 @property (nonatomic, strong) UIButton *gotoTextButton;
 @property (nonatomic, strong) UIButton *topmostButton;
+@property (nonatomic, strong) UIButton *alertButton;
 
 @property (nonatomic, strong) UIView *topmostColorView;
 @property (nonatomic, strong) NSArray *colorArray;
@@ -45,6 +46,7 @@
     [self.view addSubview:self.presentButton];
     [self.view addSubview:self.gotoTextButton];
     [self.view addSubview:self.topmostButton];
+    [self.view addSubview:self.alertButton];
 }
 
 - (UIButton *)pushButton
@@ -102,6 +104,17 @@
     return _topmostColorView;
 }
 
+- (UIButton *)alertButton
+{
+    if (!_alertButton) {
+        _alertButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_alertButton setTitle:@"Alert" forState:UIControlStateNormal];
+        _alertButton.frame = CGRectMake(10, 250, 100, 50);
+        [_alertButton addTarget:self action:@selector(alertAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _alertButton;
+}
+
 - (void)pushAction
 {
     [self.navigationController pushViewController:[PushedViewController new] animated:YES];
@@ -123,6 +136,16 @@
 {
     self.topmostColorView.backgroundColor = self.colorArray[self.colorIndex];
     self.colorIndex = (self.colorIndex + 1) % [self.colorArray count];
+}
+
+- (void)alertAction
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Alert" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+    [alertView show];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [alertView dismissWithClickedButtonIndex:0 animated:YES];
+    });
+    [[TopmostView viewForApplicationWindow] showToast:@"alert"];
 }
 
 @end
