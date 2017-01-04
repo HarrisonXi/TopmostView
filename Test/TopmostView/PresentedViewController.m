@@ -22,13 +22,13 @@
 {
     if (self = [super init]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
+        self.title = @"Presented";
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Presented";
     self.view.backgroundColor = [UIColor colorWithRed:0.9 green:1 blue:0.9 alpha:1];
     [self.view addSubview:self.dismissButton];
 }
@@ -37,7 +37,7 @@
 {
     if (!_dismissButton) {
         _dismissButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_dismissButton setTitle:@"Pop" forState:UIControlStateNormal];
+        [_dismissButton setTitle:@"Dismiss" forState:UIControlStateNormal];
         _dismissButton.frame = CGRectMake(10, 10, 100, 50);
         [_dismissButton addTarget:self action:@selector(dismissAction) forControlEvents:UIControlEventTouchUpInside];
     }

@@ -9,7 +9,7 @@
 #import "MainViewController.h"
 #import "PushedViewController.h"
 #import "PresentedViewController.h"
-#import "TextViewController.h"
+#import "KeyboardController.h"
 #import "TopmostView.h"
 #import "UIView+Toast.h"
 
@@ -17,7 +17,7 @@
 
 @property (nonatomic, strong) UIButton *pushButton;
 @property (nonatomic, strong) UIButton *presentButton;
-@property (nonatomic, strong) UIButton *gotoTextButton;
+@property (nonatomic, strong) UIButton *keyboardButton;
 @property (nonatomic, strong) UIButton *topmostButton;
 @property (nonatomic, strong) UIButton *alertButton;
 
@@ -33,6 +33,7 @@
 {
     if (self = [super init]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
+        self.title = @"TopmostViewDemo";
         self.colorArray = @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor]];
     }
     return self;
@@ -40,11 +41,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Main";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.pushButton];
     [self.view addSubview:self.presentButton];
-    [self.view addSubview:self.gotoTextButton];
+    [self.view addSubview:self.keyboardButton];
     [self.view addSubview:self.topmostButton];
     [self.view addSubview:self.alertButton];
 }
@@ -71,15 +71,15 @@
     return _presentButton;
 }
 
-- (UIButton *)gotoTextButton
+- (UIButton *)keyboardButton
 {
-    if (!_gotoTextButton) {
-        _gotoTextButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_gotoTextButton setTitle:@"Text" forState:UIControlStateNormal];
-        _gotoTextButton.frame = CGRectMake(10, 130, 100, 50);
-        [_gotoTextButton addTarget:self action:@selector(gotoTextAction) forControlEvents:UIControlEventTouchUpInside];
+    if (!_keyboardButton) {
+        _keyboardButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_keyboardButton setTitle:@"Keyboard" forState:UIControlStateNormal];
+        _keyboardButton.frame = CGRectMake(10, 130, 100, 50);
+        [_keyboardButton addTarget:self action:@selector(keyboardAction) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _gotoTextButton;
+    return _keyboardButton;
 }
 
 - (UIButton *)topmostButton
@@ -127,9 +127,9 @@
     [[TopmostView viewForApplicationWindow] showToast:@"present"];
 }
 
-- (void)gotoTextAction
+- (void)keyboardAction
 {
-    [self.navigationController pushViewController:[TextViewController new] animated:YES];
+    [self.navigationController pushViewController:[KeyboardController new] animated:YES];
 }
 
 - (void)changeColorAction
@@ -140,12 +140,10 @@
 
 - (void)alertAction
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Alert" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Alert" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alertView show];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [alertView dismissWithClickedButtonIndex:0 animated:YES];
-    });
-    [[TopmostView viewForApplicationWindow] showToast:@"alert"];
+    [[TopmostView viewForApplicationWindow] showToast:@"~\n application \n~" withYLocation:0.6];
+    [[TopmostView viewForTopmostWindow] showToast:@"~\n topmost \n~" withYLocation:0.4];
 }
 
 @end

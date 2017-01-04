@@ -1,5 +1,5 @@
 //
-//  TextViewController.h
+//  KeyboardController.h
 //  TopmostView
 //
 //  Created by HarrisonXi on 16/2/19.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TextViewController : UIViewController
+@interface KeyboardController : UIViewController
 
 @end

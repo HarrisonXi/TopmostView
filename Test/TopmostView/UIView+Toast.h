@@ -11,5 +11,6 @@
 @interface UIView (Toast)
 
 - (void)showToast:(NSString *)messageStr;
+- (void)showToast:(NSString *)messageStr withYLocation:(CGFloat)yLocation;
 
 @end

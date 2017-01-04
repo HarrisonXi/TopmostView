@@ -22,13 +22,13 @@
 {
     if (self = [super init]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
+        self.title = @"Pushed";
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Pushed";
     self.view.backgroundColor = [UIColor colorWithRed:1 green:1 blue:0.9 alpha:1];
     [self.view addSubview:self.popButton];
 }
