@@ -39,6 +39,7 @@
 		9213F4111C76F65200B7221C /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		921C80A01C7719AC002A5F26 /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
 		921C80A11C7719AC002A5F26 /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
+		926BBFDC1E1CDAA5003613A0 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +56,7 @@
 		9213F3E11C76C3BC00B7221C = {
 			isa = PBXGroup;
 			children = (
+				926BBFDC1E1CDAA5003613A0 /* LICENSE */,
 				9213F4041C76C98A00B7221C /* TopmostView.h */,
 				9213F4051C76C98A00B7221C /* TopmostView.m */,
 				9213F3EC1C76C3BC00B7221C /* TopmostView */,
@@ -128,7 +130,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = "Pixel Knight Studio";
+				ORGANIZATIONNAME = "http://harrisonxi.com/";
 				TargetAttributes = {
 					9213F3E91C76C3BC00B7221C = {
 						CreatedOnToolsVersion = 7.2;

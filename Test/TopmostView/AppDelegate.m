@@ -3,7 +3,7 @@
 //  TopmostView
 //
 //  Created by HarrisonXi on 16/2/19.
-//  Copyright © 2016年 Pixel Knight Studio. All rights reserved.
+//  Copyright © 2016-2017年 http://harrisonxi.com/. All rights reserved.
 //
 
 #import "AppDelegate.h"
