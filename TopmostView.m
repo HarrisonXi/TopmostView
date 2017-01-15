@@ -102,51 +102,61 @@
     }];
 }
 
-static UIWindow *appicationWindow_;
-+ (void)resetApplicationWindow
-{
-    appicationWindow_ = [UIApplication sharedApplication].keyWindow;
-}
-
-+ (void)setApplicationWindow:(UIWindow *)aWindow
-{
-    appicationWindow_ = aWindow;
-}
-
 + (instancetype)viewForApplicationWindow
 {
-    if (!appicationWindow_) {
-        [self resetApplicationWindow];
-    }
-    return [self viewForWindow:appicationWindow_];
+    return [self viewForWindow:[[UIApplication sharedApplication].delegate window]];
+}
+
++ (instancetype)viewForStatusBarWindow
+{
+    static dispatch_once_t once;
+    static UIWindow *statusBarWindow_;
+    dispatch_once(&once, ^{
+        statusBarWindow_ = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        statusBarWindow_.backgroundColor = [UIColor clearColor];
+        statusBarWindow_.windowLevel = UIWindowLevelStatusBar + 100;
+        statusBarWindow_.userInteractionEnabled = NO;
+        statusBarWindow_.hidden = NO;
+    });
+    return [self viewForWindow:statusBarWindow_];
+}
+
++ (instancetype)viewForAlertWindow
+{
+    static dispatch_once_t once;
+    static UIWindow *alertWindow_;
+    dispatch_once(&once, ^{
+        alertWindow_ = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        alertWindow_.backgroundColor = [UIColor clearColor];
+        alertWindow_.windowLevel = UIWindowLevelAlert + 100;
+        alertWindow_.userInteractionEnabled = NO;
+        alertWindow_.hidden = NO;
+    });
+    return [self viewForWindow:alertWindow_];
 }
 
 + (instancetype)viewForKeyboardWindow
 {
     for (UIWindow *window in [[UIApplication sharedApplication].windows reverseObjectEnumerator]) {
-        if ([window isKindOfClass:NSClassFromString(@"UITextEffectsWindow")] && window.hidden == NO && window.alpha > 0) {
+        if ([window isKindOfClass:NSClassFromString(@"UITextEffectsWindow")]) {
             return [self viewForWindow:window];
         }
     }
     return nil;
 }
 
-static UIWindow *topmostWindow_;
-+ (instancetype)viewForTopmostWindow
-{
-    if (!topmostWindow_) {
-        topmostWindow_ = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        topmostWindow_.backgroundColor = [UIColor clearColor];
-        topmostWindow_.windowLevel = UIWindowLevelStatusBar + 1;
-        topmostWindow_.userInteractionEnabled = NO;
-        topmostWindow_.rootViewController = [UIViewController new];
-        topmostWindow_.hidden = NO;
-    }
-    return [self viewForWindow:topmostWindow_];
-}
-
 + (instancetype)viewForWindow:(UIWindow *)window
 {
+#ifdef TV_DEMO
+    for (UIWindow *win in [UIApplication sharedApplication].windows) {
+        NSLog(@"window class: %@, window level: %.0f", NSStringFromClass([win class]), win.windowLevel);
+        if (![win isMemberOfClass:[UIWindow class]]) {
+            for (UIView *subview in win.subviews) {
+                NSLog(@"    subview class: %@", NSStringFromClass([subview class]));
+            }
+        }
+    }
+#endif
     TopmostView *topmostView = nil;
     for (UIView *subview in window.subviews) {
         if ([subview isKindOfClass:[TopmostView class]]) {

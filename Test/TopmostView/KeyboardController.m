@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UIButton *toast1Button;
 @property (nonatomic, strong) UIButton *toast2Button;
+@property (nonatomic, strong) UIButton *toast3Button;
 
 @end
 
@@ -35,6 +36,14 @@
     [self.view addSubview:self.textField];
     [self.view addSubview:self.toast1Button];
     [self.view addSubview:self.toast2Button];
+    [self.view addSubview:self.toast3Button];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.textField becomeFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -59,7 +68,7 @@
 {
     if (!_toast1Button) {
         _toast1Button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_toast1Button setTitle:@"Applicatoin Toast" forState:UIControlStateNormal];
+        [_toast1Button setTitle:@"Applicatoin" forState:UIControlStateNormal];
         _toast1Button.frame = CGRectMake(10, 70, 200, 50);
         [_toast1Button addTarget:self action:@selector(toastAction:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -70,11 +79,22 @@
 {
     if (!_toast2Button) {
         _toast2Button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_toast2Button setTitle:@"Topmost Toast" forState:UIControlStateNormal];
+        [_toast2Button setTitle:@"Status Bar" forState:UIControlStateNormal];
         _toast2Button.frame = CGRectMake(10, 130, 200, 50);
         [_toast2Button addTarget:self action:@selector(toastAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _toast2Button;
+}
+
+- (UIButton *)toast3Button
+{
+    if (!_toast3Button) {
+        _toast3Button = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_toast3Button setTitle:@"Keyboard" forState:UIControlStateNormal];
+        _toast3Button.frame = CGRectMake(10, 190, 200, 50);
+        [_toast3Button addTarget:self action:@selector(toastAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _toast3Button;
 }
 
 - (void)toastAction:(id)sender
@@ -82,7 +102,9 @@
     if (sender == self.toast1Button) {
         [[TopmostView viewForApplicationWindow] showToast:@"~\n application \n~"];
     } else if (sender == self.toast2Button) {
-        [[TopmostView viewForTopmostWindow] showToast:@"~\n topmost \n~"];
+        [[TopmostView viewForStatusBarWindow] showToast:@"~\n status bar \n~"];
+    } else if (sender == self.toast3Button) {
+        [[TopmostView viewForKeyboardWindow] showToast:@"~\n keyboard \n~"];
     }
 }
 

@@ -18,10 +18,10 @@
 @property (nonatomic, strong) UIButton *pushButton;
 @property (nonatomic, strong) UIButton *presentButton;
 @property (nonatomic, strong) UIButton *keyboardButton;
-@property (nonatomic, strong) UIButton *topmostButton;
+@property (nonatomic, strong) UIButton *statusBarButton;
 @property (nonatomic, strong) UIButton *alertButton;
 
-@property (nonatomic, strong) UIView *topmostColorView;
+@property (nonatomic, strong) UIView *statusBarColorView;
 @property (nonatomic, strong) NSArray *colorArray;
 @property (nonatomic, assign) NSInteger colorIndex;
 
@@ -45,7 +45,7 @@
     [self.view addSubview:self.pushButton];
     [self.view addSubview:self.presentButton];
     [self.view addSubview:self.keyboardButton];
-    [self.view addSubview:self.topmostButton];
+    [self.view addSubview:self.statusBarButton];
     [self.view addSubview:self.alertButton];
 }
 
@@ -82,26 +82,26 @@
     return _keyboardButton;
 }
 
-- (UIButton *)topmostButton
+- (UIButton *)statusBarButton
 {
-    if (!_topmostButton) {
-        _topmostButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_topmostButton setTitle:@"Topmost" forState:UIControlStateNormal];
-        _topmostButton.frame = CGRectMake(10, 190, 100, 50);
-        [_topmostButton addTarget:self action:@selector(changeColorAction) forControlEvents:UIControlEventTouchUpInside];
+    if (!_statusBarButton) {
+        _statusBarButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_statusBarButton setTitle:@"Status Bar" forState:UIControlStateNormal];
+        _statusBarButton.frame = CGRectMake(10, 190, 100, 50);
+        [_statusBarButton addTarget:self action:@selector(changeColorAction) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _topmostButton;
+    return _statusBarButton;
 }
 
-- (UIView *)topmostColorView
+- (UIView *)statusBarColorView
 {
-    if (!_topmostColorView) {
-        TopmostView *topmostView = [TopmostView viewForTopmostWindow];
-        _topmostColorView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(topmostView.bounds) - 64, 0, 64, 64)];
-        _topmostColorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [topmostView addSubview:_topmostColorView];
+    if (!_statusBarColorView) {
+        TopmostView *topmostView = [TopmostView viewForStatusBarWindow];
+        _statusBarColorView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(topmostView.bounds) - 64, 0, 64, 64)];
+        _statusBarColorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [topmostView addSubview:_statusBarColorView];
     }
-    return _topmostColorView;
+    return _statusBarColorView;
 }
 
 - (UIButton *)alertButton
@@ -134,7 +134,7 @@
 
 - (void)changeColorAction
 {
-    self.topmostColorView.backgroundColor = self.colorArray[self.colorIndex];
+    self.statusBarColorView.backgroundColor = self.colorArray[self.colorIndex];
     self.colorIndex = (self.colorIndex + 1) % [self.colorArray count];
 }
 
@@ -142,8 +142,8 @@
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Alert" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alertView show];
-    [[TopmostView viewForApplicationWindow] showToast:@"~\n application \n~" withYLocation:0.6];
-    [[TopmostView viewForTopmostWindow] showToast:@"~\n topmost \n~" withYLocation:0.4];
+    [[TopmostView viewForStatusBarWindow] showToast:@"~\n status bar \n~" withYLocation:0.6];
+    [[TopmostView viewForAlertWindow] showToast:@"~\n alert \n~" withYLocation:0.4];
 }
 
 @end
