@@ -114,7 +114,7 @@
     dispatch_once(&once, ^{
         statusBarWindow_ = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         statusBarWindow_.backgroundColor = [UIColor clearColor];
-        statusBarWindow_.windowLevel = UIWindowLevelStatusBar + 100;
+        statusBarWindow_.windowLevel = UIWindowLevelStatusBar + 50;
         statusBarWindow_.userInteractionEnabled = NO;
         statusBarWindow_.hidden = NO;
     });
@@ -128,7 +128,7 @@
     dispatch_once(&once, ^{
         alertWindow_ = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         alertWindow_.backgroundColor = [UIColor clearColor];
-        alertWindow_.windowLevel = UIWindowLevelAlert + 100;
+        alertWindow_.windowLevel = UIWindowLevelAlert + 50;
         alertWindow_.userInteractionEnabled = NO;
         alertWindow_.hidden = NO;
     });
@@ -138,7 +138,7 @@
 + (instancetype)viewForKeyboardWindow
 {
     for (UIWindow *window in [[UIApplication sharedApplication].windows reverseObjectEnumerator]) {
-        if ([window isKindOfClass:NSClassFromString(@"UITextEffectsWindow")]) {
+        if ([window isKindOfClass:NSClassFromString(@"UITextEffectsWindow")] && window.hidden == NO && window.alpha > 0) {
             return [self viewForWindow:window];
         }
     }
