@@ -95,11 +95,13 @@
 
 - (void)changeOrientationHandler:(NSNotification *)notification
 {
-    [UIView animateWithDuration:0.25 animations:^{
+    if (notification.name == UIApplicationWillChangeStatusBarOrientationNotification) {
+        [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration animations:^{
             UIInterfaceOrientation orientation = (UIInterfaceOrientation)[notification.userInfo[UIApplicationStatusBarOrientationUserInfoKey] integerValue];
             [self updateWithOrientation:orientation];
         }];
     }
+}
 
 + (instancetype)viewForApplicationWindow
 {
