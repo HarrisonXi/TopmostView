@@ -7,6 +7,7 @@
 //
 
 #import "UIView+Toast.h"
+#import "TopmostView.h"
 
 @implementation UIView (Toast)
 
@@ -33,6 +34,10 @@
     messageLabel.alpha = 0;
     [self addSubview:messageLabel];
     
+    if ([self respondsToSelector:@selector(recursiveEnableUserInteraction)]) {
+        // Block user interaction.
+        [self performSelector:@selector(recursiveEnableUserInteraction)];
+    }
     [UIView animateWithDuration:0.25 animations:^{
         messageLabel.alpha = 1;
     } completion:^(BOOL finished) {
@@ -40,6 +45,10 @@
             messageLabel.alpha = 0;
         } completion:^(BOOL finished) {
             [messageLabel removeFromSuperview];
+            if ([self respondsToSelector:@selector(recursiveDisableUserInteraction)]) {
+                // Unblock user interaction.
+                [self performSelector:@selector(recursiveDisableUserInteraction)];
+            }
         }];
     }];
 }

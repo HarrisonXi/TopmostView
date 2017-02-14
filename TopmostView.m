@@ -8,9 +8,14 @@
 
 #import "TopmostView.h"
 
+@implementation TVWindow
+
+@end
+
 @interface TopmostView ()
 
 @property (nonatomic, weak) UIWindow *tv_window;
+@property (nonatomic, assign) NSUInteger userInteractionCount;
 
 @end
 
@@ -103,6 +108,26 @@
     }
 }
 
+- (void)recursiveEnableUserInteraction
+{
+    self.userInteractionCount++;
+    self.userInteractionEnabled = self.userInteractionCount > 0;
+    if ([self.tv_window isKindOfClass:[TVWindow class]]) {
+        self.tv_window.userInteractionEnabled = self.userInteractionEnabled;
+    }
+}
+
+- (void)recursiveDisableUserInteraction
+{
+    if (self.userInteractionCount > 0) {
+        self.userInteractionCount--;
+    }
+    self.userInteractionEnabled = self.userInteractionCount > 0;
+    if ([self.tv_window isKindOfClass:[TVWindow class]]) {
+        self.tv_window.userInteractionEnabled = self.userInteractionEnabled;
+    }
+}
+
 + (instancetype)viewForApplicationWindow
 {
     return [self viewForWindow:[[UIApplication sharedApplication].delegate window]];
@@ -111,9 +136,9 @@
 + (instancetype)viewForStatusBarWindow
 {
     static dispatch_once_t once;
-    static UIWindow *statusBarWindow_;
+    static TVWindow *statusBarWindow_;
     dispatch_once(&once, ^{
-        statusBarWindow_ = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        statusBarWindow_ = [[TVWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         statusBarWindow_.rootViewController = [UIViewController new];
         statusBarWindow_.backgroundColor = [UIColor clearColor];
         statusBarWindow_.windowLevel = UIWindowLevelStatusBar + 50;
@@ -126,9 +151,9 @@
 + (instancetype)viewForAlertWindow
 {
     static dispatch_once_t once;
-    static UIWindow *alertWindow_;
+    static TVWindow *alertWindow_;
     dispatch_once(&once, ^{
-        alertWindow_ = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        alertWindow_ = [[TVWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         alertWindow_.rootViewController = [UIViewController new];
         alertWindow_.backgroundColor = [UIColor clearColor];
         alertWindow_.windowLevel = UIWindowLevelAlert + 50;
@@ -153,10 +178,8 @@
 #ifdef TV_DEMO
     for (UIWindow *win in [UIApplication sharedApplication].windows) {
         NSLog(@"window class: %@, window level: %.0f", NSStringFromClass([win class]), win.windowLevel);
-        if (![win isMemberOfClass:[UIWindow class]]) {
-            for (UIView *subview in win.subviews) {
-                NSLog(@"    subview class: %@", NSStringFromClass([subview class]));
-            }
+        for (UIView *subview in win.subviews) {
+            NSLog(@"    subview class: %@", NSStringFromClass([subview class]));
         }
     }
 #endif

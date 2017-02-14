@@ -27,6 +27,16 @@ Get topmost view for specified window:
 
     [TopmostView viewForWindow:window]
 
+Use these methods to enable or disable user interaction:
+
+    // TopmostView will manage the correct state with call count.
+    // Please make sure the window is enabled.
+    // If the window is a TVWindow created by TopmostView,
+    // TopmostView will also manage the correct state for it.
+    - (void)recursiveEnableUserInteraction;
+    - (void)recursiveDisableUserInteraction;
+
+
 # 中文介绍
 
 获得 UIWindow 里最顶层的 view。这个最顶层的 view 可以随着设备正常的旋转。另外测试工程里包含一个简单的 toast 实现。支持 iOS 7-11。
@@ -53,5 +63,14 @@ Get topmost view for specified window:
 获得指定 window 里最顶层的 view：
 
     [TopmostView viewForWindow:window]
+
+用下面的方法来启用或禁用用户交互（User Interaction）：
+
+    // TopmostView 将通过调用计数来维护正确的状态。
+    // 当然您需要确认对应的 window 开启了用户交互。
+    // 如果对应的 window 是 TopmostView 所创建的一个 TVWindow，
+    // 那么 TopmostView 也会为它维护正确的状态。
+    - (void)recursiveEnableUserInteraction;
+    - (void)recursiveDisableUserInteraction;
 
 实现细节逻辑相关blog：[iOS系统的键盘window](http://blog.harrisonxi.com/2017/02/iOS%E7%B3%BB%E7%BB%9F%E7%9A%84%E9%94%AE%E7%9B%98window.html)，[iOS系统window的旋转及自定义window的问题](http://blog.harrisonxi.com/2017/02/iOS%E7%B3%BB%E7%BB%9Fwindow%E7%9A%84%E6%97%8B%E8%BD%AC%E5%8F%8A%E8%87%AA%E5%AE%9A%E4%B9%89window%E7%9A%84%E9%97%AE%E9%A2%98.html)
