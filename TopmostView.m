@@ -19,9 +19,11 @@
 - (instancetype)initWithWindow:(UIWindow *)window
 {
     if (self = [super init]) {
+        self.tv_window = window;
         self.backgroundColor = [UIColor clearColor];
         self.userInteractionEnabled = NO;
-        self.tv_window = window;
+        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+        [self updateWithOrientation:orientation];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeOrientationHandler:) name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
     }
     return self;
@@ -41,16 +43,13 @@
         width = height;
         height = temp;
     }
-    CGFloat offset = (height - width) / 2;
     CGAffineTransform transform;
     switch (orientation) {
         case UIInterfaceOrientationLandscapeLeft:
-            transform = CGAffineTransformMakeTranslation(-offset, offset);
-            transform = CGAffineTransformRotate(transform, -M_PI_2);
+            transform = CGAffineTransformMakeRotation(-M_PI_2);
             break;
         case UIInterfaceOrientationLandscapeRight:
-            transform = CGAffineTransformMakeTranslation(-offset, offset);
-            transform = CGAffineTransformRotate(transform, M_PI_2);
+            transform = CGAffineTransformMakeRotation(M_PI_2);
             break;
         case UIInterfaceOrientationPortraitUpsideDown:
             transform = CGAffineTransformMakeRotation(-M_PI);
@@ -97,10 +96,10 @@
 - (void)changeOrientationHandler:(NSNotification *)notification
 {
     [UIView animateWithDuration:0.25 animations:^{
-        UIInterfaceOrientation orientation = (UIInterfaceOrientation)[notification.userInfo[UIApplicationStatusBarOrientationUserInfoKey] integerValue];
-        [self updateWithOrientation:orientation];
-    }];
-}
+            UIInterfaceOrientation orientation = (UIInterfaceOrientation)[notification.userInfo[UIApplicationStatusBarOrientationUserInfoKey] integerValue];
+            [self updateWithOrientation:orientation];
+        }];
+    }
 
 + (instancetype)viewForApplicationWindow
 {
@@ -113,6 +112,7 @@
     static UIWindow *statusBarWindow_;
     dispatch_once(&once, ^{
         statusBarWindow_ = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        statusBarWindow_.rootViewController = [UIViewController new];
         statusBarWindow_.backgroundColor = [UIColor clearColor];
         statusBarWindow_.windowLevel = UIWindowLevelStatusBar + 50;
         statusBarWindow_.userInteractionEnabled = NO;
@@ -127,6 +127,7 @@
     static UIWindow *alertWindow_;
     dispatch_once(&once, ^{
         alertWindow_ = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        alertWindow_.rootViewController = [UIViewController new];
         alertWindow_.backgroundColor = [UIColor clearColor];
         alertWindow_.windowLevel = UIWindowLevelAlert + 50;
         alertWindow_.userInteractionEnabled = NO;
@@ -166,9 +167,6 @@
     }
     if (!topmostView) {
         topmostView = [[self alloc] initWithWindow:window];
-        topmostView.frame = window.bounds;
-        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-        [topmostView updateWithOrientation:orientation];
         [window addSubview:topmostView];
     }
     [topmostView.tv_window bringSubviewToFront:topmostView];
