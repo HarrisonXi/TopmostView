@@ -18,6 +18,8 @@
 + (instancetype)viewForStatusBarWindow;
 
 // Get topmost view for a new window over alert window.
+// It is for iOS 7/8, UIAlertView cteate a new window which level = UIWindowLevelAlert.
+// For iOS >= 9, UIAlertController does not create a new window.
 + (instancetype)viewForAlertWindow;
 
 // Get topmost view for the keyboard window.

@@ -1,6 +1,6 @@
 # TopmostView
 
-Get topmost view for UIWindow. The topmost view can rotate correctly with devices. The test project contains a simple toast implemention. Supports iOS 7-10.
+Get topmost view for UIWindow. The topmost view can rotate correctly with devices. The test project contains a simple toast implemention. Supports iOS 7-11.
 
 Get topmost view for the application window:
 
@@ -17,6 +17,8 @@ Get topmost view for a new window over status bar:
 
 Get topmost view for a new window over alert view:
 
+    // It is for iOS 7/8, UIAlertView cteate a new window which level = UIWindowLevelAlert.
+    // For iOS >= 9, UIAlertController does not create a new window.
     [TopmostView viewForAlertWindow]
 
 Get topmost view for specified window:
@@ -25,7 +27,7 @@ Get topmost view for specified window:
 
 # 中文介绍
 
-获得 UIWindow 里最顶层的 view。这个最顶层的 view 可以随着设备正常的旋转。另外测试工程里包含一个简单的 toast 实现。支持 iOS 7-10。
+获得 UIWindow 里最顶层的 view。这个最顶层的 view 可以随着设备正常的旋转。另外测试工程里包含一个简单的 toast 实现。支持 iOS 7-11。
 
 获得应用程序 window 里最顶层的 view：
 
@@ -42,6 +44,8 @@ Get topmost view for specified window:
 
 获得一个覆盖在 Alert 弹窗之上的新 window 里最顶层的 view：
 
+    // 这是用在 iOS 7/8 上的，UIAlertView 会创建一个 level 为 UIWindowLevelAlert 的 window。
+    // 在 iOS >= 9 的设备上，UIAlertController 是不会创建新 window 的。
     [TopmostView viewForAlertWindow]
 
 获得指定 window 里最顶层的 view：

@@ -140,9 +140,15 @@
 
 - (void)alertAction
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Alert" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alertView show];
-    [[TopmostView viewForStatusBarWindow] showToast:@"~\n status bar \n~" withYLocation:0.6];
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 9.0f) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"Alert" preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [self.navigationController presentViewController:alertController animated:YES completion:nil];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Alert" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        [[TopmostView viewForStatusBarWindow] showToast:@"~\n status bar \n~" withYLocation:0.6];
+    }
     [[TopmostView viewForAlertWindow] showToast:@"~\n alert \n~" withYLocation:0.4];
 }
 
