@@ -1,3 +1,5 @@
+[![CocoaPods](https://img.shields.io/cocoapods/v/TopmostView.svg)]() [![CocoaPods](https://img.shields.io/cocoapods/p/TopmostView.svg)]() [![CocoaPods](https://img.shields.io/cocoapods/l/TopmostView.svg)]()
+
 # TopmostView
 
 Get topmost view for UIWindow. The topmost view can rotate correctly with devices. The test project contains a simple toast implemention. Supports iOS 7-11.
